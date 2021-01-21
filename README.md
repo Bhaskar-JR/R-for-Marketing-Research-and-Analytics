@@ -79,12 +79,12 @@ Marketing analysts often investigate differences between groups of people. Do me
 Such questions are not confined to differences among people; similar questions are asked of many other kinds of groups. One might be interested to group data by geography: does Region A perform better than Region B? Or time period: did same- store sales increase after a promotion such as a mailer or a sale? In all such cases, we are comparing one group of data to another to identify an effect.  
   
   
-##### In R code in general:  
+#### In R code in general:  
 • When writing for() loops, use seq_along() instead of 1:length() (Sect. 5.1.2).  
 • For if() and for() blocks, always use brackets (“{” and “}”) for improved readability and reliability (Sect. 5.1.3).  
 • When creating a data object from scratch, pre-populate it with missing data (NA) and then fill it in, for speed and reliability (Sect. 5.1.1).  
 
-##### When describing and visualizing data for groups:  
+#### When describing and visualizing data for groups:  
 • The by() command can split up data and automatically apply functions such as mean() and summary() (Sect. 5.2).  
 • aggregate() is even more powerful: it understands formula models and pro- duces a reusable, indexable object with its results (Sects. 5.2 and 5.2.1).  
 • Frequency of occurrence can be found with table(). For count data, especially when using formulas, xtabs() is useful (Sect. 5.2.2).  
