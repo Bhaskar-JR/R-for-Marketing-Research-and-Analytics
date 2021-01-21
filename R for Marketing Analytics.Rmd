@@ -1,0 +1,240 @@
+---
+title: "Marketing Analytics with R"
+author: "Bhaskar"
+date: "20/01/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+1.R for Marketing Research and Analytics {http://r-marketing.r-forge.r-project.org/data.html}
+2.Data Analytics in E-Commerce Retail
+**Analytics concepts & applications in e-commerce retail with easy demonstrations and interesting business examples**
+Ashish Tomar 
+3. Marketing Analytics by Mike Grigsby (2nd Edition 2018)
+4. Marketing Analytics Data-Driven Techniques by Wayne Winston
+
+install.packages(c("lavaan", "semPlot", "corrplot", "multcomp", "gplots"))
+
+We can now recommend a general approach to inspecting a data set after compiling or importing it; replace “my.data” and “DATA” with the names of your objects:  
+1. Import your data with read.csv() or another appropriate function and check that the importation process gives no errors.  
+2. Convert it to a dataframe if needed (my.data <- data.frame(DATA) and set column names (names(my.data) <- c(...)) if needed.  
+3. Examine dim() to check that the data frame has the expected number of rows and columns.  
+4. Use head(my.data) and tail(my.data) to check the first few and last few rows; make sure that header rows at the beginning and blank rows at the end were not included accidentally. Also check that no good rows were skipped at the beginning.  
+5. Use some() from the car package to examine a few sets of random rows.  
+6. Check the data frame structure with str() to ensure that variable types and values are appropriate. Change the type of variables—especially to factor types—as necessary.  
+7. Run summary() and look for unexpected values, especially min and max that are unexpected.  
+8. Load the psych library and examine basic descriptives with describe(). Reconfirm the observation counts by checking that n is the same for each variable, and check trimmed mean and skew (if relevant).  
+  
+  
+The following guidelines and pointers will help you to describe data accurately and quickly:
+• Consider simulating data before collecting it, in order to test your assumptions and develop initial analysis code (Sect. 3.1).
+• Always check your data for proper structure and data quality using str(), head(), summary(), and other basic inspection commands (Sect. 3.3.3).
+• Describe discrete (categorical) data with table() (Sect. 3.2.1) and inspect continuous data with describe() from the psych package (Sect. 3.3.2).
+• Histograms (Sect. 3.4.1), boxplots, and beanplots (Sect. 3.4.2) are good for initial data visualization.
+• Use by() and aggregate() to break out your data by grouping variables (Sect. 3.4.5).
+• Advanced visualization methods include cumulative distribution (Sect.3.4.4),normality checks (Sect. 3.4.3), and mapping (Sect. 3.4.6).
+  
+  
+
+```{r}
+ecomm.df <- read.csv("https://goo.gl/hzRyFd") 
+summary(ecomm.df)
+```
+```{r}
+str(ecomm.df)
+```
+```{r}
+dim(ecomm.df)
+```
+```{r}
+p1.table <- table(ecomm.df$country)
+x <- sort(p1.table,decreasing=T)
+View(x)
+```
+
+install.packages("writexl")
+3. Compute a two-way frequency table for the intent to purchase (intentWasPlanningToBuy), broken out by user profile.
+```{r}
+library(tidyr)
+library(dplyr)
+library("writexl")
+
+ecomm.df %>%
+  group_by(profile)%>%
+  count(intentWasPlanningToBuy)%>%
+  write_xlsx("/Users/bhaskarroy/Desktop/ecomm.xlsx")
+
+```
+
+5. Among US states (recorded in the variable region), which state had the most
+visitors and how many?
+```{r}
+ecomm.df %>%
+  filter(country == "United States") %>%
+  count(region)%>%
+  arrange(desc(n) )
+```
+```{r}
+barplot(ecomm.df$behavNumVisits,)
+library(ggplot2)
+
+ecomm.df %>%
+  filter(behavNumVisits <= 25)%>%
+ggplot(aes(x = behavNumVisits))+
+geom_boxplot()
+
+ecomm.df %>%
+  filter(behavNumVisits <= 25)%>%
+ggplot(aes(x = behavNumVisits))+
+geom_bar()
+
+```
+8. Draw a horizontal boxplot for the number of site visits.
+```{r}
+ecomm.df %>%
+ggplot(aes(x = behavNumVisits))+
+geom_boxplot()
+```
+
+
+
+
+```{r}
+par(mar=c(3, 12, 2, 2))
+boxplot(ecomm.df$behavNumVisits ~ ecomm.df$profile, las=1, horizontal = TRUE)
+```
+```{r}
+ecomm.df %>%
+ggplot(aes(x = behavNumVisits, y = profile))+
+geom_boxplot(alpha = 0.5)
+```
+
+11. *Write a function called MeanMedDiff that returns the absolute difference between the mean and the median of a vector.
+```{r}
+MeanMedDiff <- function(x) {
+# computes the absolute difference between mean and median
+diff <- abs(mean(x)-median(x))
+return (diff)
+}
+```
+12. *What is the mean-median difference for number of site visits?
+```{r}
+MeanMedDiff(ecomm.df$behavNumVisits)
+```
+
+13. *What is the mean-median difference for site visits, after excluding the person
+who had the most visits?
+```{r}
+MeanMedDiff(ecomm.df[-which.max(ecomm.df$behavNumVisits), "behavNumVisits"]) 
+```
+
+14. *Use the apply() function to find the mean-median difference for the 1/0
+coded behavioral variables for onsite behaviors.
+```{r}
+View(colnames(ecomm.df))
+```
+
+```{r}
+sort(apply(ecomm.df[,38:45],2,MeanMedDiff),decreasing = T)
+```
+
+15. *Write the previous command using an anonymous function (see Sect.2.7.2)
+instead of MeanMedDiff().
+
+```{r}
+sort(apply(ecomm.df[,38:45],2, function (x) {abs(mean(x)-median(x))}),decreasing = T)
+```
+
+
+```{r}
+#cust.df <- read.csv("http://goo.gl/PmPkaG")
+
+set.seed(21821)
+ncust <- 1000
+cust.df <- data.frame(cust.id=as.factor(c(1:ncust)))
+cust.df$age <- rnorm(n=ncust, mean=35, sd=5)
+cust.df$credit.score <- rnorm(n=ncust, mean=3*cust.df$age+620, sd=50) 
+cust.df$email <- factor(sample(c("yes", "no"), size=ncust, replace=TRUE,prob=c(0.8, 0.2)))
+cust.df$distance.to.store <- exp(rnorm(n=ncust, mean=2, sd=1.2))
+```
+
+```{r}
+ summary(cust.df)
+```
+
+```{r}
+cust.df$online.visits <- rnbinom(ncust, size=0.3,
+                                 mu = 15 + ifelse(cust.df$email == "yes", 15, 0) - 
+                                   0.7* (cust.df$age-median(cust.df$age)))
+
+cust.df$online.trans <- rbinom(ncust, size=cust.df$online.visits, prob=0.3) 
+cust.df$online.spend <- exp(rnorm(ncust, mean=3, sd=0.1)) * cust.df$online.trans
+      
+```
+
+
+```{r}
+cust.df$store.trans <- rnbinom(ncust, size=5, 
+                               mu=3 / sqrt(cust.df$distance.to.store))
+cust.df$store.spend <- exp(rnorm(ncust, mean=3.5, sd=0.4)) * cust.df$store.trans
+```
+
+```{r}
+summary(cust.df)
+```
+
+```{r}
+str(cust.df)
+```
+```{r}
+sat.overall <- rnorm(ncust, mean=3.1, sd=0.7)
+sat.service <- floor(sat.overall + rnorm(ncust, mean=0.5, sd=0.4))
+sat.selection <- floor(sat.overall + rnorm(ncust, mean=-0.2, sd=0.6))
+summary(cbind(sat.service, sat.selection))
+```
+```{r}
+sat.service[sat.service > 5] <- 5
+sat.service[sat.service < 1] <- 1
+sat.selection[sat.selection > 5] <- 5
+sat.selection[sat.selection < 1] <- 1
+summary(cbind(sat.service, sat.selection))
+             
+```
+```{r}
+no.response <- as.logical(rbinom(ncust, size=1, prob=cust.df$age/100)) 
+sat.service[no.response] <- NA
+sat.selection[no.response] <- NA
+summary(cbind(sat.service, sat.selection))
+```
+```{r}
+cust.df$sat.service <- sat.service
+cust.df$sat.selection <- sat.selection 
+summary(cust.df)
+```
+
+```{r}
+plot(cust.df$age, cust.df$credit.score,
+     col="blue",
+     xlim=c(15, 55), ylim=c(500, 900),
+     main="Active Customers as of June 2014",
+     xlab="Customer Age (years)", ylab="Customer Credit Score ")
+abline(h=mean(cust.df$credit.score), col="dark blue", lty="dotted"),
+abline(v=mean(cust.df$age), col="dark blue", lty="dotted"))
+   
+```
+
+install.packages(c("corrplot","gplots"))
+```{r}
+library(corrplot) # for correlation plot, install if needed 
+library(gplots) # color interpolation, install if needed 
+corrplot.mixed(corr=cor(cust.df[ , c(2, 3, 5:12)], use="complete.obs"),
+upper="ellipse", tl.pos="lt",
+upper.col = colorpanel(50, "red", "gray60", "blue4"))
+    
+```
+
