@@ -34,10 +34,10 @@ Following are some of the important points to consider when analyzing relationsh
 from the cars package (Sect. 4.4.2).  
 • Many functions such as plot() call a generic function that determines what to do based on the type of data. When a plotting function does something unexpected,
 checking data types with str() will often reveal the problem (Sect. 4.2.1).  
-• When variables are highly skewed, it is often helpful to draw the axes on a log- arithmic scale using the by setting the log argument of the plot() function to log="x", log="y", or log="xy" (Sect. 4.2.4). Alternatively, the variables might be transformed to a more interpretable distribution (Sect. 4.5.3).  
+• When variables are highly skewed, it is often helpful to draw the axes on a logarithmic scale using the by setting the log argument of the plot() function to log="x", log="y", or log="xy" (Sect. 4.2.4). Alternatively, the variables might be transformed to a more interpretable distribution (Sect. 4.5.3).  
   
 ### Statistics   
 • cor(x, y) computes the Pearson correlation coefficient r between variables x and y. This measures the strength of the linear relationship between the variables (Sect. 4.5).  
 • cor() will produce a correlation matrix when it is passed several or many vari- ables. A handy way to visualize these is with the corrplot package (Sect. 4.5.2).  
 • cor.test() assesses statistical significance and reports the confidence interval for r (Sect. 4.5.1).  
-• For many kinds of marketing data, the magnitude of r may be interpreted by Cohen’s rules of thumb (r =0.1 is a weak association, r =0.3 is medium, and r =0.5 is strong), although this assumes that the data are approximately normal in distri- bution (Sect. 4.5).  
+• For many kinds of marketing data, the magnitude of r may be interpreted by Cohen’s rules of thumb (r =0.1 is a weak association, r =0.3 is medium, and r =0.5 is strong), although this assumes that the data are approximately normal in distribution (Sect. 4.5).  
