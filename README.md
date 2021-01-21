@@ -76,10 +76,10 @@ https://www.toptal.com/designers/htmlarrows/math/
 
 Marketing analysts often investigate differences between groups of people. Do men or women subscribe to our service at a higher rate? Which demographic segment can best afford our product? Does the product appeal more to homeowners or renters? The answers help us to understand the market, to target customers effectively, and to evaluate the outcome of marketing activities such as promotions.  
   
-  Such questions are not confined to differences among people; similar questions are asked of many other kinds of groups. One might be interested to group data by geography: does Region A perform better than Region B? Or time period: did same- store sales increase after a promotion such as a mailer or a sale? In all such cases, we are comparing one group of data to another to identify an effect.
+Such questions are not confined to differences among people; similar questions are asked of many other kinds of groups. One might be interested to group data by geography: does Region A perform better than Region B? Or time period: did same- store sales increase after a promotion such as a mailer or a sale? In all such cases, we are comparing one group of data to another to identify an effect.  
   
   
- In R code in general:
+In R code in general:  
 • When writing for() loops, use seq_along() instead of 1:length() (Sect. 5.1.2). 
 • For if() and for() blocks, always use brackets (“{” and “}”) for improved readability and reliability (Sect. 5.1.3).  
 • When creating a data object from scratch, pre-populate it with missing data (NA) and then fill it in, for speed and reliability (Sect. 5.1.1).  
