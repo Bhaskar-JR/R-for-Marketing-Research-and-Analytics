@@ -71,8 +71,7 @@ ecomm.df %>%
 
 ```
 
-5. Among US states (recorded in the variable region), which state had the most
-visitors and how many?
+5. Among US states (recorded in the variable region), which state had the most visitors and how many?
 ```{r}
 ecomm.df %>%
   filter(country == "United States") %>%
@@ -127,14 +126,12 @@ return (diff)
 MeanMedDiff(ecomm.df$behavNumVisits)
 ```
 
-13. *What is the mean-median difference for site visits, after excluding the person
-who had the most visits?
+13. *What is the mean-median difference for site visits, after excluding the person who had the most visits?
 ```{r}
 MeanMedDiff(ecomm.df[-which.max(ecomm.df$behavNumVisits), "behavNumVisits"]) 
 ```
 
-14. *Use the apply() function to find the mean-median difference for the 1/0
-coded behavioral variables for onsite behaviors.
+14. *Use the apply() function to find the mean-median difference for the 1/0 coded behavioral variables for onsite behaviors.
 ```{r}
 View(colnames(ecomm.df))
 ```
@@ -143,8 +140,7 @@ View(colnames(ecomm.df))
 sort(apply(ecomm.df[,38:45],2,MeanMedDiff),decreasing = T)
 ```
 
-15. *Write the previous command using an anonymous function (see Sect.2.7.2)
-instead of MeanMedDiff().
+15. *Write the previous command using an anonymous function (see Sect.2.7.2) instead of MeanMedDiff().
 
 ```{r}
 sort(apply(ecomm.df[,38:45],2, function (x) {abs(mean(x)-median(x))}),decreasing = T)
