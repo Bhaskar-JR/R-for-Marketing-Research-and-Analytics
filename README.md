@@ -93,7 +93,7 @@ When describing and visualizing data for groups:
   
   
 Recommended Books.  
-Norman Matloff’s The Art of R Programming. 
+Norman Matloff’s The Art of R Programming.  
 Sarkar’s Lattice.  
 
 
