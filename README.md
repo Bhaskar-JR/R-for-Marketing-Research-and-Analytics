@@ -47,7 +47,7 @@ checking data types with str() will often reveal the problem (Sect. 4.2.1).
 • cor() will produce a correlation matrix when it is passed several or many vari- ables. A handy way to visualize these is with the corrplot package (Sect. 4.5.2).  
 • cor.test() assesses statistical significance and reports the confidence interval for r (Sect. 4.5.1).  
 • For many kinds of marketing data, the magnitude of r may be interpreted by Cohen’s rules of thumb (r =0.1 is a weak association, r =0.3 is medium, and r =0.5 is strong), although this assumes that the data are approximately normal in distribution (Sect. 4.5).  
-• When the relationship between two variables is nonlinear, r does not give an accurate assessment of the association. Computing r between transformed variables may make associations more apparent (Sect. 4.5.3.). 
+• When the relationship between two variables is nonlinear, r does not give an accurate assessment of the association. Computing r between transformed variables may make associations more apparent (Sect. 4.5.3.).  
 • There are common distributions that often occur in marketing, such as unit sales being related to log(price). Before modeling associations, plot histograms of your variables and assess potential transformations of them (Sect. 4.5.4).  
 • An automated way to select an optimal transformation is to use a Box-Cox transform (Sect. 4.5.5).  
 • The function polychor() from the psych package is useful to compute correlations between survey responses on ordinal ratings scales (Sect. 4.6.2).  
