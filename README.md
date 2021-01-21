@@ -92,7 +92,7 @@ Such questions are not confined to differences among people; similar questions a
 • Plots for continuous data by factor may use barchart(), or even better, box- and-whiskers plots with boxplot() (Sect. 5.2.4) or bean plots (Sect. 3.4.2). The lattice package extends boxplots to multiple factors using formula specifica- tion in the bwplot() command (Sect. 5.2.4).  
   
   
-Recommended Books.  
+### Recommended Books.  
 Norman Matloff’s The Art of R Programming.  
 Sarkar’s Lattice.  
 
