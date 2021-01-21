@@ -1,6 +1,10 @@
 # R-for-Marketing-Research-and-Analytics
 
-## General Approach to inspect a data set
+## Describing Data  
+
+It is important to describe and explore any data set before moving on to more complex analysis.  
+This would involve summarizing and exploring a data set with descriptive statistics (mean, standard deviation, and so forth) and visualization methods.  
+### General Approach to inspect a data set
 We can now recommend a general approach to inspecting a data set after compiling or importing it; replace “my.data” and “DATA” with the names of your objects:  
 1. Import your data with read.csv() or another appropriate function and check that the importation process gives no errors.  
 2. Convert it to a dataframe if needed (my.data <- data.frame(DATA) and set column names (names(my.data) <- c(...)) if needed.  
@@ -11,7 +15,7 @@ We can now recommend a general approach to inspecting a data set after compiling
 7. Run summary() and look for unexpected values, especially min and max that are unexpected.  
 8. Load the psych library and examine basic descriptives with describe(). Reconfirm the observation counts by checking that n is the same for each variable, and check trimmed mean and skew (if relevant).  
 
-## Guidelines to describe data accrurately
+### Guidelines to describe data accurately
 The following guidelines and pointers will help you to describe data accurately and quickly:  
 • Consider simulating data before collecting it, in order to test your assumptions and develop initial analysis code (Sect. 3.1).  
 • Always check your data for proper structure and data quality using str(), head(), summary(), and other basic inspection commands (Sect. 3.3.3).  
@@ -20,9 +24,11 @@ The following guidelines and pointers will help you to describe data accurately 
 • Use by() and aggregate() to break out your data by grouping variables (Sect. 3.4.5).  
 • Advanced visualization methods include cumulative distribution (Sect.3.4.4),normality checks (Sect. 3.4.3), and mapping (Sect. 3.4.6).  
 
-
-
 ## Relationships Between Continuous Variables  
+The most important insights in marketing analysis often come from understanding relationships between variables. It helps marketers to understand how to reach customers more effectively. For example, if people who live closer to a store visit more frequently and buy more, then an obvious strategy would be to send advertisements to people who live in the area.  
+  
+We shall focus on understanding the relationships between pairs of variables in multivariate data, and examine how to visualize the relationships and compute statistics that describe their associations (correlation coefficients).  
+  
 Following are some of the important points to consider when analyzing relationships between variables.  
 ### Visualization  
 • plot(x, y) creates scatterplots where x is a vector of x-values to be plotted and y is a vector of the same length with y-values (Sect. 4.2.1.).  
@@ -41,3 +47,17 @@ checking data types with str() will often reveal the problem (Sect. 4.2.1).
 • cor() will produce a correlation matrix when it is passed several or many vari- ables. A handy way to visualize these is with the corrplot package (Sect. 4.5.2).  
 • cor.test() assesses statistical significance and reports the confidence interval for r (Sect. 4.5.1).  
 • For many kinds of marketing data, the magnitude of r may be interpreted by Cohen’s rules of thumb (r =0.1 is a weak association, r =0.3 is medium, and r =0.5 is strong), although this assumes that the data are approximately normal in distribution (Sect. 4.5).  
+  
+### Common transformations of variables in marketing  
+Variable | Common Transformations 
+--- | --- 
+Unit Sales, revenue, household income, price | log(x) 
+Distance | 1/x, 1/x^2, log(x) 
+Market or Preference Based Share on a utility value | e<sup>x</sup>/(1+e<sup>x</sup>)
+Right Tailed Distributions (generally) | <span>&#8730;</span>x or log(x)
+Left Tailed Distributions (generally) | x<span>&sup2;</span> 
+
+
+
+
+
